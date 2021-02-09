@@ -7,6 +7,34 @@
 - <thread> lib in c++
 - way to create threads
   -
+  - funtion pointers
+  
+  - function objects
+  
+  - lamda functions in c++
+    
+    - here [] is capture list for local variables in the scope
+      
+      - can be passed using pass by value and reference
+      
+      - () - argument list
+      
+      - {} - function body
+    
+    - these function can be passed directly to thread like
+    
+    - ```cpp
+      int a;
+      auto some_thread_func = [&a](){ std::cout << "hello" ;};
+      auto some_func = [](auto i, auto j) {
+          // body
+      };
+      thread th([&a](){ std::cout << "hello" ;});
+      
+      
+      
+      ```
+  
   - ```cpp
     void thread_function()
     {
@@ -37,3 +65,5 @@
   For synchronised threads execution we will talk about it later
   
   [Synchronization (computer science) - Wikipedia](https://en.wikipedia.org/wiki/Synchronization_(computer_science)#Thread_or_process_synchronization)  read the example of 3 process for syncing their access to crtical sections of the code
+
+- 
