@@ -11,5 +11,7 @@ int main()
     std::thread th(thread_function);
     std::cout<< "from main";
     th.join();
-
+    // using lamda functions     
+    auto some_thread_func = [](){ std::cout << "hello" ;};
+    
 }
