@@ -5,8 +5,10 @@
 ### Thread creation
 
 - <thread> lib in c++
+
 - way to create threads
   -
+  
   - funtion pointers
   
   - function objects
@@ -15,11 +17,15 @@
     
     - here [] is capture list for local variables in the scope
       
-      - can be passed using pass by value and reference
+      - [&] passing all variables ( in scope where function resides ) by **reference**
       
-      - () - argument list
+      - [=] passing all ( in scope where function resides )by *value*
       
-      - {} - function body
+      can be passed using pass by value and reference
+      
+      () - argument list
+      
+      {} - function body
     
     - these function can be passed directly to thread like
     
@@ -31,26 +37,26 @@
       };
       thread th([&a](){ std::cout << "hello" ;});
       
-      
-      
       ```
-  
-  - ```cpp
-    void thread_function()
-    {
-        std::cout << "Hello from thread_functions";
-    }
-    main()
-    {
-        std::thread th(thread_function);
-        vector<std::thread> th_vector;
-        // we can also push thread to vector a call them
-        for(int i = 0; i < 2; i++)
-        {
-            th_vector.push_back()
-        }
-    }
-    ```
+
+      ```
+
+- ```cpp
+  void thread_function()
+  {
+      std::cout << "Hello from thread_functions";
+  }
+  main()
+  {
+      std::thread th(thread_function);
+      vector<std::thread> th_vector;
+      // we can also push thread to vector a call them
+      for(int i = 0; i < 2; i++)
+      {
+          th_vector.push_back()
+      }
+  }
+  ```
 
 ## Thread sync
 
