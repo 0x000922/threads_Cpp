@@ -1,2 +1,2 @@
-# My basic intro to multithreading in c++
+# intro to multithreading in c++
 
