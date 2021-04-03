@@ -1,15 +1,19 @@
-# Repo for learning concourrency in C++
+# Repo for learning Multithreading in C++
 
 ## Basic
 
 ### Thread vs process
 
-- 
+- | Process                                                                                                                                                                                                                                                                                                    | thread                                                                                                                                                                            |
+  |:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | In windows terms **process** is a much broader part of application. A process is independent in existance and has it's own address space, security context, identifier. And a primary threads. This primary thread can spawn other worker thread. *commmon for all platforms* just read from windows docs. | A thread can execute work for a process therefore they share the same address space as the process it spawns. They can enable them to share between more than one worker threads. |
+  | In short the process has a independent existance of memory and is has it's own address space. It can spawn thread for work                                                                                                                                                                                 | A thread is unit of work of a application. A unit which can scheduled for execution.                                                                                              |
 
-- | Process                                                                                                                                                                                                                                           | thread                                                                                                                                                                            |
-  |:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | In windows terms **process** is a much broader part of application. A process is independent in existance and has it's own address space, security context, identifier. And a primary threads. This primary thread can spawn other worker thread. | A thread can execute work for a process therefore they share the same address space as the process it spawns. They can enable them to share between more than one worker threads. |
-  | In short the process has a independent existance of memory and is has it's own address space. It can spawn thread for work                                                                                                                        | A thread is unit of work of a application. A unit which can scheduled for execution.                                                                                              |
+### A note of thread's context of execution
+
+- As threads can be scheduled for execution they have their registers, stack for execution.
+
+- A unique point is that even though threads can have a have user address space they can have diffrent permission than the process from which it was spawned this is also called impersonation ( a thread having diffrenent permission to mimic a client on the order side of the server. for eg remote servers with users having root / admin access. The remote process maynot have higher inherit permission but the person using the service may be working with higher permissions stage )
 
 ### Thread creation
 
@@ -28,9 +32,8 @@
       
       - [&] passing all variables ( in scope where function resides ) by **reference**
       
-      - [=] passing all ( in scope where function resides )by *value*
-      
-      can be passed using pass by value and reference
+      - [=] passing all ( in scope where function resides )by **value**      
+        can be passed using pass by value and reference
       
       () - argument list
       
@@ -72,10 +75,24 @@
   }
   ```
 
-## Thread sync
-
-1) one of the important things to do in multithreading is to wait for one thread to execute critical section of the code to complete a part of code which is required to run simultaneously not parrelly 
-
-2) for eg -  only thread should have access to balance__amt when updating the balance if more than one threads have access to balance__amt  then it might have dirty write or maynot write synchronously since threads initiate and end their lifecycle according to the CPU not to the program. Therefore we must have ways to sync the threads to work in synchronised order or stop them from accessing the critical sections for 1 thread at a time we use *mutex* for this. For synchronised threads execution we will talk about it later 
-   
-   [Synchronization (computer science) - Wikipedia](https://en.wikipedia.org/wiki/Synchronization_(computer_science)#Thread_or_process_synchronization)  read the example of 3 process for syncing their access to crtical sections of the code
+- ### Passing parameters in threads
+  
+  - We can pass an argument list to function when passing them to threads
+    
+    ```cpp
+    auto fn = [](int a, int b){
+        std::cout << a + b;
+    };
+    std:: thread th(fn,1,2); // 3
+    ```
+  
+  - Keep in mind that thread functions can't return any values ( they can but we can't use those values). Therefore we must update the references to get answers from the threads.  There are other ways to avoid using references. C++ has constructs to use return values from the functions used in async in c++
+    
+    ```cpp
+    void ret_refer_int(int b, int &a){
+        a = b + 1;
+        a
+    }
+    ```
+    
+    
